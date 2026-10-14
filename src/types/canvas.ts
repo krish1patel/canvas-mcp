@@ -4,7 +4,7 @@ export interface Course {
   id: number;
   name: string;
   course_code: string;
-  workflow_state: 'unpublished' | 'available' | 'completed' | 'deleted';
+  workflow_state: "unpublished" | "available" | "completed" | "deleted";
   account_id: number;
   root_account_id: number;
   enrollment_term_id: number;
@@ -13,7 +13,7 @@ export interface Course {
   enrollments?: Enrollment[];
   total_students?: number;
   calendar?: CalendarLink;
-  default_view: 'feed' | 'wiki' | 'modules' | 'assignments' | 'syllabus';
+  default_view: "feed" | "wiki" | "modules" | "assignments" | "syllabus";
   syllabus_body?: string;
   needs_grading_count?: number;
   term?: Term;
@@ -38,7 +38,12 @@ export interface Enrollment {
   role: string;
   role_id: number;
   user_id: number;
-  enrollment_state: 'active' | 'invited' | 'inactive' | 'completed' | 'rejected';
+  enrollment_state:
+    | "active"
+    | "invited"
+    | "inactive"
+    | "completed"
+    | "rejected";
   computed_current_score?: number;
   computed_final_score?: number;
   computed_current_grade?: string;
@@ -83,25 +88,25 @@ export interface Assignment {
   omit_from_final_grade: boolean;
 }
 
-export type SubmissionType = 
-  | 'online_text_entry'
-  | 'online_url'
-  | 'online_upload'
-  | 'online_quiz'
-  | 'media_recording'
-  | 'student_annotation'
-  | 'discussion_topic'
-  | 'external_tool'
-  | 'on_paper'
-  | 'none';
+export type SubmissionType =
+  | "online_text_entry"
+  | "online_url"
+  | "online_upload"
+  | "online_quiz"
+  | "media_recording"
+  | "student_annotation"
+  | "discussion_topic"
+  | "external_tool"
+  | "on_paper"
+  | "none";
 
-export type GradingType = 
-  | 'pass_fail'
-  | 'percent'
-  | 'letter_grade'
-  | 'gpa_scale'
-  | 'points'
-  | 'not_graded';
+export type GradingType =
+  | "pass_fail"
+  | "percent"
+  | "letter_grade"
+  | "gpa_scale"
+  | "points"
+  | "not_graded";
 
 export interface LockInfo {
   asset_string: string;
@@ -146,7 +151,7 @@ export interface Submission {
   grade: string | null;
   score: number | null;
   submission_type: SubmissionType | null;
-  workflow_state: 'submitted' | 'unsubmitted' | 'graded' | 'pending_review';
+  workflow_state: "submitted" | "unsubmitted" | "graded" | "pending_review";
   grade_matches_current_submission: boolean;
   graded_at: string | null;
   grader_id: number | null;
@@ -176,7 +181,7 @@ export interface MediaComment {
   content_type: string;
   display_name: string;
   media_id: string;
-  media_type: 'audio' | 'video';
+  media_type: "audio" | "video";
   url: string;
 }
 
@@ -213,7 +218,7 @@ export interface Module {
   items_count: number;
   items_url: string;
   items?: ModuleItem[];
-  state?: 'locked' | 'unlocked' | 'started' | 'completed';
+  state?: "locked" | "unlocked" | "started" | "completed";
   completed_at?: string | null;
   publish_final_grade?: boolean;
   published?: boolean;
@@ -237,18 +242,23 @@ export interface ModuleItem {
   published?: boolean;
 }
 
-export type ModuleItemType = 
-  | 'File'
-  | 'Page'
-  | 'Discussion'
-  | 'Assignment'
-  | 'Quiz'
-  | 'SubHeader'
-  | 'ExternalUrl'
-  | 'ExternalTool';
+export type ModuleItemType =
+  | "File"
+  | "Page"
+  | "Discussion"
+  | "Assignment"
+  | "Quiz"
+  | "SubHeader"
+  | "ExternalUrl"
+  | "ExternalTool";
 
 export interface CompletionRequirement {
-  type: 'must_view' | 'must_submit' | 'must_contribute' | 'min_score' | 'must_mark_done';
+  type:
+    | "must_view"
+    | "must_submit"
+    | "must_contribute"
+    | "min_score"
+    | "must_mark_done";
   min_score?: number;
   completed?: boolean;
 }
@@ -272,7 +282,7 @@ export interface Announcement {
   topic_children: number[];
   attachments?: FileAttachment[];
   author: User;
-  read_state?: 'read' | 'unread';
+  read_state?: "read" | "unread";
 }
 
 export interface DiscussionTopic {
@@ -285,7 +295,7 @@ export interface DiscussionTopic {
   require_initial_post: boolean;
   user_can_see_posts: boolean;
   discussion_subentry_count: number;
-  read_state: 'read' | 'unread';
+  read_state: "read" | "unread";
   unread_count: number;
   subscribed: boolean;
   assignment_id: number | null;
@@ -314,7 +324,7 @@ export interface DiscussionEntry {
   user_name: string;
   user: User;
   message: string;
-  read_state: 'read' | 'unread';
+  read_state: "read" | "unread";
   forced_read_state: boolean;
   created_at: string;
   updated_at: string;
@@ -340,7 +350,7 @@ export interface FileUploadParams {
   size: number;
   content_type: string;
   parent_folder_path?: string;
-  on_duplicate?: 'overwrite' | 'rename';
+  on_duplicate?: "overwrite" | "rename";
 }
 
 export interface FileUploadResponse {
@@ -358,22 +368,43 @@ export interface SubmitAssignmentParams {
 
 // Query parameter types
 export interface ListCoursesParams {
-  enrollment_type?: 'teacher' | 'student' | 'ta' | 'observer' | 'designer';
-  enrollment_state?: 'active' | 'invited_or_pending' | 'completed';
-  state?: ('unpublished' | 'available' | 'completed' | 'deleted')[];
-  include?: ('needs_grading_count' | 'syllabus_body' | 'total_scores' | 'term' | 'course_progress' | 'sections' | 'total_students')[];
+  enrollment_type?: "teacher" | "student" | "ta" | "observer" | "designer";
+  enrollment_state?: "active" | "invited_or_pending" | "completed";
+  state?: ("unpublished" | "available" | "completed" | "deleted")[];
+  include?: (
+    | "needs_grading_count"
+    | "syllabus_body"
+    | "total_scores"
+    | "term"
+    | "course_progress"
+    | "sections"
+    | "total_students"
+  )[];
 }
 
 export interface ListAssignmentsParams {
-  include?: ('submission' | 'assignment_visibility' | 'all_dates' | 'overrides' | 'score_statistics')[];
+  include?: (
+    | "submission"
+    | "assignment_visibility"
+    | "all_dates"
+    | "overrides"
+    | "score_statistics"
+  )[];
   search_term?: string;
-  bucket?: 'past' | 'overdue' | 'undated' | 'ungraded' | 'unsubmitted' | 'upcoming' | 'future';
+  bucket?:
+    | "past"
+    | "overdue"
+    | "undated"
+    | "ungraded"
+    | "unsubmitted"
+    | "upcoming"
+    | "future";
   assignment_ids?: number[];
-  order_by?: 'position' | 'name' | 'due_at';
+  order_by?: "position" | "name" | "due_at";
 }
 
 export interface ListModulesParams {
-  include?: ('items' | 'content_details')[];
+  include?: ("items" | "content_details")[];
   search_term?: string;
   student_id?: number;
 }
